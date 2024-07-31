@@ -60,7 +60,7 @@ void process_output(const Eigen::MatrixXd& rotation, const Eigen::MatrixXd& comp
         for (size_t pc = 0; pc < npcs; ++pc) {
             const double* rptr = rotation.data() + pc * nfeat; 
 
-#ifndef _OPENMP
+#ifdef _OPENMP
             #pragma omp simd
 #endif
             for (size_t i = 0; i < nfeat; ++i) {
@@ -91,14 +91,14 @@ void process_output(const Eigen::MatrixXd& rotation, const Eigen::MatrixXd& comp
         }
 
         Float_ denom = npcs;
-#ifndef _OPENMP
+#ifdef _OPENMP
         #pragma omp simd
 #endif
         for (size_t i = 0; i < nfeat; ++i) {
             output.weights[i] = std::sqrt(output.weights[i] / denom);
         }
 
-#ifndef _OPENMP
+#ifdef _OPENMP
         #pragma omp parallel for
 #endif
         for (size_t c = 0; c < ncells; ++c) {
@@ -121,7 +121,7 @@ void process_output(const Eigen::MatrixXd& rotation, const Eigen::MatrixXd& comp
         multiplier /= nfeat;
 
         const double* cptr = components.data();
-#ifndef _OPENMP
+#ifdef _OPENMP
         #pragma omp simd
 #endif
         for (size_t c = 0; c < ncells; ++c) {

@@ -1,5 +1,9 @@
 # C++ port of the GSDecon algorithm
 
+![Unit tests](https://github.com/libscran/gsdecon/actions/workflows/run-tests.yaml/badge.svg)
+![Documentation](https://github.com/libscran/gsdecon/actions/workflows/doxygenate.yaml/badge.svg)
+[![Codecov](https://codecov.io/gh/libscran/gsdecon/graph/badge.svg?token=qklLZtJSE9)](https://codecov.io/gh/libscran/gsdecon)
+
 ## Introduction
 
 This repository implements a C++ port of the [**GSDecon**](https://github.com/JasonHackney/GSDecon) algorithm for computing gene set scores from a single-cell expression matrix.

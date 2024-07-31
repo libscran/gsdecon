@@ -26,7 +26,7 @@ struct Options {
      */
 
     /**
-     * Rank of the low-rank approximation to compute. 
+     * Rank of the low-rank approximation.
      */
     int rank = 1;
 

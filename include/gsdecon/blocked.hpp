@@ -15,18 +15,21 @@
 
 /**
  * @file blocked.hpp
- * @brief Compute per-cell scores for a feature set.
+ * @brief Compute per-cell scores with blocking.
  */
 
 namespace gsdecon {
 
 /**
- * Extension of the **GSDecon** method to datasets containing multiple blocks (e.g., batches, samples).
- * We perform the PCA on the residuals generated after centering each block in `scran_pca::blocked_pca()`.
+ * Extension of the algorithm described in `compute()` to datasets containing multiple blocks (e.g., batches, samples).
+ *
+ * In the presence of strong block effects, naively running `compute()` would yield a first PC that is driven by uninteresting inter-block differences.
+ * Here, We werform the PCA on the residuals after centering each block, ensuring that the first PC focuses on the interesting variation within each block.
  * Blocks can also be weighted so that they contribute equally to the rotation vector, regardless of the number of cells.
- * Note that the purpose of the blocking is to ensure that inter-block differences do not drive the first few PCs.
- * This process may not remove global shifts in expression between blocks, depending on the rotation vectors -
- * the caller is responsible for per-cell scores are responsible responsibility of downstream ana
+ *
+ * Note that the purpose of the blocking is to ensure that inter-block differences do not drive the first few PCs, not to remove the block effects themselves.
+ * Using residuals for batch correction requires strong assumptions such as identical block composition and consistent shifts across subpopulations, and we don't attempt make that claim.
+ * The caller is instead responsible for ensuring that the block structure is still considered in any further analysis of the returned scores.
  *
  * @tparam Value_ Floating-point type for the data.
  * @tparam Index_ Integer type for the indices.

@@ -14,23 +14,29 @@
 
 /**
  * @file compute.hpp
- * @brief Compute per-cell scores for a feature set.
+ * @brief Compute per-cell scores for a gene set.
  */
 
 namespace gsdecon {
 
 /**
- * Per-cell scores are defined as the column means of the low-rank approximation of the input matrix. 
- * The assumption here is that the primary activity of the matrix can be quantified by the largest component of variance amongst its features.
- * (If this was not the case, one could argue that this feature set is not well-suited to capture the biology attributed to it.)
- * In effect, the rotation vector defines weights for all features in the set, focusing on genes that contribute to the primary activity.
+ * Given an input matrix containing log-expression values for genes in a set of interest, 
+ * per-cell scores are defined as the column means of the low-rank approximation of that matrix.
+ * The assumption here is that the primary activity of the gene set can be quantified by the largest component of variance amongst its genes.
+ * (If this was not the case, one could argue that this gene set is not well-suited to capture the biology attributed to it.)
+ * In effect, the rotation vector defines weights for all genes in the set, focusing on genes that contribute to the primary activity.
+ *
+ * By default, we use a rank-1 approximation (see `Options::rank`).
+ * The reported weight for each gene (in `Results::weights`) is simply the absolute value of the associated rotation vector from the PCA.
+ * Higher ranks may capture more biological signal for non-linear variation but also increases noise in the per-cell scores.
+ * If higher ranks are used, each gene's weight is instead defined as the root mean square of that gene's values across all rotation vectors.
  *
  * @tparam Value_ Floating-point type for the data.
  * @tparam Index_ Integer type for the indices.
  * @tparam Float_ Floating-point type for the output.
  *
  * @param[in] matrix An input **tatami** matrix.
- * Columns should contain cells while rows should contain genes.
+ * Columns should contain cells while rows should contain genes in the set of interest.
  * @param options Further options. 
  * @param[out] output Collection of buffers in which to store the scores and weights.
  */

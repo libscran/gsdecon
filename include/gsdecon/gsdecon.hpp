@@ -1,5 +1,5 @@
-#ifndef GSDECON_HPP
-#define GSDECON_HPP
+#ifndef gsdECON_HPP
+#define gsdECON_HPP
 
 #include "compute.hpp"
 #include "blocked.hpp"
@@ -8,12 +8,12 @@
 
 /**
  * @file gsdecon.hpp
- * @brief Umbrella header for **GSDecon**.
+ * @brief Umbrella header for **gsdecon**.
  */
 
 /**
  * @namespace gsdecon
- * @brief Gene set scoring with **GSDecon**.
+ * @brief Gene set scoring with **gsdecon**.
  */
 namespace gsdecon {}
 

@@ -23,8 +23,8 @@ struct Buffers {
     Float_* scores;
 
     /**
-     * Pointer to an array of length equal to the number of features,
-     * used to store the per-feature weights.
+     * Pointer to an array of length equal to the number of genes,
+     * used to store the per-gene weights.
      */
     Float_* weights;
 };
@@ -36,15 +36,15 @@ struct Buffers {
 template<typename Float_>
 struct Results {
     /**
-     * Vector of per-cell scores for this feature set.
-     * This has length equal to the number of scores in the dataset.
+     * Vector of per-cell scores for this gene set.
+     * This has length equal to the number of cells.
      */
     std::vector<double> scores;
 
     /**
-     * Vector of weights of length equal to the number of features in the set.
-     * Each entry contains the weight of each successive feature in the feature set.
-     * Weights may be negative.
+     * Vector of weights of length equal to the number of genes in the set.
+     * Each entry contains the weight of each successive gene in the gene set.
+     * Weights are guaranteed to be non-negative, where larger values indicate a greater contribution to the low-rank approximation.
      */
     std::vector<double> weights;
 };

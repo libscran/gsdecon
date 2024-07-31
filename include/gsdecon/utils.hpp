@@ -48,19 +48,18 @@ bool check_edge_cases(const tatami::Matrix<Value_, Index_>& matrix, int rank, co
 }
 
 template<typename Float_>
-void process_output(const Eigen::MatrixXd& rotation, const Eigen::MatrixXd& components, bool scale, const Eigen::VectorXd& scale_v, Buffers<Float_>& output) {
+void process_output(const Eigen::MatrixXd& rotation, const Eigen::MatrixXd& components, bool scale, const Eigen::VectorXd& scale_v, const Buffers<Float_>& output) {
     size_t npcs = rotation.cols();
     size_t nfeat = rotation.rows();
-    size_t ncells = components.rows();
+    size_t ncells = components.cols();
+    static_assert(!Eigen::MatrixXd::IsRowMajor); // just double-checking...
 
-    for (size_t pc = 0; pc < npcs; ++pc) {
-        static_assert(!Eigen::MatrixXd::IsRowMajor); // just double-checking...
-        const double* rptr = rotation.data() + pc * nfeat; 
+    if (npcs > 1) {
+        std::vector<double> multipliers(npcs);
+        std::fill_n(output.weights, nfeat, 0);
+        for (size_t pc = 0; pc < npcs; ++pc) {
+            const double* rptr = rotation.data() + pc * nfeat; 
 
-        if (npcs > 1) {
-            if (pc == 0) {
-                std::fill_n(output.weights, nfeat, 0);
-            }
 #ifndef _OPENMP
             #pragma omp simd
 #endif
@@ -68,24 +67,51 @@ void process_output(const Eigen::MatrixXd& rotation, const Eigen::MatrixXd& comp
                 auto val = rptr[i];
                 output.weights[i] += val * val;
             }
-        } else {
-            std::copy_n(rptr, nfeat, output.weights);
+
+            /*
+             * We have the first PC 'P' and a column of the rotation vector 'R',
+             * plus a centering vector 'C' and scaling vector 'S'. The low-rank
+             * approximation is defined as (using R syntax):
+             *
+             *     L = outer(R, P) * S + C 
+             *       = outer(R * S, P) + C
+             *
+             * Remember that we want the column means of the rank-1 approximation, so:
+             *
+             *     colMeans(L) = mean(R * S) * P + colMeans(C)
+             *
+             * If scale = false, then S can be dropped from the above expression.
+             */
+            if (scale) {
+                multipliers[pc] = std::inner_product(rptr, rptr + nfeat, scale_v.data(), 0.0);
+            } else {
+                multipliers[pc] = std::accumulate(rptr, rptr + nfeat, 0.0);
+            }
+            multipliers[pc] /= nfeat;
         }
 
-        /*
-         * We have the first PC 'P' and a column of the rotation vector 'R',
-         * plus a centering vector 'C' and scaling vector 'S'. The low-rank
-         * approximation is defined as (using R syntax):
-         *
-         *     L = outer(R, P) * S + C 
-         *       = outer(R * S, P) + C
-         *
-         * Remember that we want the column means of the rank-1 approximation, so:
-         *
-         *     colMeans(L) = mean(R * S) * P + colMeans(C)
-         *
-         * If scale = false, then S can be dropped from the above expression.
-         */
+        Float_ denom = npcs;
+#ifndef _OPENMP
+        #pragma omp simd
+#endif
+        for (size_t i = 0; i < nfeat; ++i) {
+            output.weights[i] = std::sqrt(output.weights[i] / denom);
+        }
+
+#ifndef _OPENMP
+        #pragma omp parallel for
+#endif
+        for (size_t c = 0; c < ncells; ++c) {
+            const double* cptr = components.data() + c * npcs;
+            output.scores[c] += std::inner_product(multipliers.begin(), multipliers.end(), cptr, 0.0);
+        }
+
+    } else {
+        const double* rptr = rotation.data();
+        for (size_t i = 0; i < nfeat; ++i) {
+            output.weights[i] = std::abs(rptr[i]);
+        }
+
         double multiplier;
         if (scale) {
             multiplier = std::inner_product(rptr, rptr + nfeat, scale_v.data(), 0.0);
@@ -94,22 +120,12 @@ void process_output(const Eigen::MatrixXd& rotation, const Eigen::MatrixXd& comp
         }
         multiplier /= nfeat;
 
-        const double* cptr = components.data() + pc * ncells;
+        const double* cptr = components.data();
 #ifndef _OPENMP
         #pragma omp simd
 #endif
-        for (size_t cell = 0; cell < ncells; ++cell) {
-            output.scores[cell] += cptr[cell] * multiplier;
-        }
-    }
-
-    if (npcs > 1) {
-        Float_ denom = npcs;
-#ifndef _OPENMP
-        #pragma omp simd
-#endif
-        for (size_t i = 0; i < nfeat; ++i) {
-            output.weights[i] = std::sqrt(output.weights[i] / denom);
+        for (size_t c = 0; c < ncells; ++c) {
+            output.scores[c] += cptr[c] * multiplier;
         }
     }
 }

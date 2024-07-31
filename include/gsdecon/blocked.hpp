@@ -66,7 +66,7 @@ void compute_blocked(const tatami::Matrix<Value_, Index_>& matrix, const Block_*
     size_t nblocks = res.center.rows();
     std::vector<double> block_means(nblocks);
 
-    for (size_t f = 0; f < nfeat; ++f, cptr += nfeat) {
+    for (size_t f = 0; f < nfeat; ++f, cptr += nblocks) {
 #ifdef _OPENMP
         #pragma omp simd
 #endif
@@ -79,7 +79,7 @@ void compute_blocked(const tatami::Matrix<Value_, Index_>& matrix, const Block_*
         b /= denom;
     }
 
-    size_t ncells = res.components.rows();
+    size_t ncells = res.components.cols();
 #ifdef _OPENMP
     #pragma omp simd
 #endif

@@ -124,7 +124,7 @@ template&lt;typename Float_ &gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Vector of per-cell scores for this feature set. This has length equal to the number of scores in the dataset. </p>
+<p>Vector of per-cell scores for this gene set. This has length equal to the number of cells. </p>
 
 </div>
 </div>
@@ -141,7 +141,7 @@ template&lt;typename Float_ &gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Vector of weights of length equal to the number of features in the set. Each entry contains the weight of each successive feature in the feature set. Weights may be negative. </p>
+<p>Vector of weights of length equal to the number of genes in the set. Each entry contains the weight of each successive gene in the gene set. Weights are guaranteed to be non-negative, where larger values indicate a greater contribution to the low-rank approximation. </p>
 
 </div>
 </div>

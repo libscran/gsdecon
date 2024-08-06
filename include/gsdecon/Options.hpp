@@ -12,7 +12,7 @@
 namespace gsdecon {
 
 /**
- * @brief Options for `compute()`.
+ * @brief Options for `compute()` and `compute_blocked()`.
  */
 struct Options {
     /**
@@ -42,7 +42,7 @@ struct Options {
     scran_blocks::WeightPolicy block_weight_policy = scran_blocks::WeightPolicy::VARIABLE;
 
     /**
-     * Parameters for the variable block weights for `compute_blocked().
+     * Parameters for the variable block weights for `compute_blocked()`.
      * Only used when `BlockedPcaOptions::block_weight_policy = scran_blocks::WeightPolicy::VARIABLE`.
      */
     scran_blocks::VariableWeightParameters variable_block_weight_parameters;

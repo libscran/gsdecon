@@ -28,8 +28,8 @@ namespace gsdecon {
  * Blocks can also be weighted so that they contribute equally to the rotation vector, regardless of the number of cells.
  *
  * Note that the purpose of the blocking is to ensure that inter-block differences do not drive the first few PCs, not to remove the block effects themselves.
- * Using residuals for batch correction requires strong assumptions such as identical block composition and consistent shifts across subpopulations, and we don't attempt make that claim.
- * The caller is instead responsible for ensuring that the block structure is still considered in any further analysis of the returned scores.
+ * Using residuals for batch correction requires strong assumptions such as identical block composition and consistent shifts across subpopulations; we do not attempt make that claim.
+ * The caller is instead responsible for ensuring that the block structure is still considered in any further analysis of the computed scores.
  *
  * @tparam Value_ Floating-point type for the data.
  * @tparam Index_ Integer type for the indices.
@@ -38,6 +38,7 @@ namespace gsdecon {
  *
  * @param[in] matrix An input **tatami** matrix.
  * Columns should contain cells while rows should contain genes.
+ * Entries are typically be log-expression values. 
  * @param[in] block Pointer to an array of length equal to the number of columns in `matrix`.
  * This should contain the blocking factor as 0-based block assignments 
  * (i.e., for \f$N\f$ blocks, block identities should run from 0 to \f$N-1\f$ with at least one entry for each block.)
@@ -102,6 +103,7 @@ void compute_blocked(const tatami::Matrix<Value_, Index_>& matrix, const Block_*
  *
  * @param[in] matrix An input **tatami** matrix.
  * Columns should contain cells while rows should contain genes.
+ * Entries are typically be log-expression values. 
  * @param[in] block Pointer to an array of length equal to the number of columns in `matrix`.
  * This should contain the blocking factor as 0-based block assignments 
  * (i.e., for \f$N\f$ blocks, block identities should run from 0 to \f$N-1\f$ with at least one entry for each block.)

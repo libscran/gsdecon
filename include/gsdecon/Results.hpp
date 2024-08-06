@@ -11,7 +11,7 @@
 namespace gsdecon {
 
 /**
- * @brief Buffers for the `compute()` results.
+ * @brief Buffers for the results of `compute()` and `compute_blocked()`.
  * @tparam Float_ Floating-point type for the results.
  */
 template<typename Float_>
@@ -30,7 +30,7 @@ struct Buffers {
 };
 
 /**
- * @brief Results of `compute()`.
+ * @brief Results of `compute()` and `compute_blocked()`.
  * @tparam Float_ Floating-point type for the results.
  */
 template<typename Float_>

@@ -2,7 +2,7 @@
 #define GSDECON_COMPUTE_HPP
 
 #include <algorithm>
-#include <vector>
+#include <numeric>
 
 #include "tatami/tatami.hpp"
 #include "irlba/irlba.hpp"
@@ -28,7 +28,7 @@ namespace gsdecon {
  *
  * By default, we use a rank-1 approximation (see `Options::rank`).
  * The reported weight for each gene (in `Results::weights`) is simply the absolute value of the associated rotation vector from the PCA.
- * Higher ranks may capture more biological signal for non-linear variation but also increases noise in the per-cell scores.
+ * Increasing the rank of the approximation may capture more biological signal but also increases noise in the per-cell scores.
  * If higher ranks are used, each gene's weight is instead defined as the root mean square of that gene's values across all rotation vectors.
  *
  * @tparam Value_ Floating-point type for the data.
@@ -37,6 +37,7 @@ namespace gsdecon {
  *
  * @param[in] matrix An input **tatami** matrix.
  * Columns should contain cells while rows should contain genes in the set of interest.
+ * Entries are typically be log-expression values. 
  * @param options Further options. 
  * @param[out] output Collection of buffers in which to store the scores and weights.
  */
@@ -68,6 +69,7 @@ void compute(const tatami::Matrix<Value_, Index_>& matrix, const Options& option
  *
  * @param[in] matrix An input **tatami** matrix.
  * Columns should contain cells while rows should contain genes.
+ * Entries are typically be log-expression values. 
  * @param options Further options. 
  *
  * @return Results of the gene set score calculation.

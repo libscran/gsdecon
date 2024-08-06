@@ -1,7 +1,12 @@
 #ifndef GSDECON_UTILS_HPP
 #define GSDECON_UTILS_HPP
 
+#include <cmath>
 #include <algorithm>
+#include <vector>
+#include <type_traits>
+#include <numeric>
+
 #include "Eigen/Dense"
 
 #include "Results.hpp"

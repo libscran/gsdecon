@@ -26,10 +26,15 @@ jobs:
       with:
         args: -O docs/irlba.tag https://ltla.github.io/CppIrlba/irlba.tag
 
-    - name: Download core_utils tagfile
+    - name: Download block_utils tagfile
       uses: wei/wget@v1
       with:
         args: -O docs/scran_blocks.tag https://libscran.github.io/scran_blocks/scran_blocks.tag
+
+    - name: Download scran_pca tagfile
+      uses: wei/wget@v1
+      with:
+        args: -O docs/scran_pca.tag https://libscran.github.io/scran_pca/scran_pca.tag
 
     - name: Doxygen Action
       uses: mattnotmitt/doxygen-action@v1

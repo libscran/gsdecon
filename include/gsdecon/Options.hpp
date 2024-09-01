@@ -43,12 +43,14 @@ struct Options {
 
     /**
      * Parameters for the variable block weights for `compute_blocked()`.
-     * Only used when `BlockedPcaOptions::block_weight_policy = scran_blocks::WeightPolicy::VARIABLE`.
+     * Only used when `Options::block_weight_policy = scran_blocks::WeightPolicy::VARIABLE`.
      */
     scran_blocks::VariableWeightParameters variable_block_weight_parameters;
 
     /**
      * Number of threads to use.
+     * The parallelization scheme is defined by `scran_pca::SimplePcaOptions::num_threads` (for `compute()`) 
+     * or `scran_pca::BlockedPcaOptions::num_threads` (for `compute_blocked()`).
      */
     int num_threads = 1;
 

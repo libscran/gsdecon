@@ -2370,6 +2370,7 @@ SKIP_FUNCTION_MACROS   = YES
 
 TAGFILES               = tatami.tag=https://tatami-inc.github.io/tatami \
                          scran_blocks.tag=https://libscran.github.io/scran_blocks \
+                         scran_pca.tag=https://libscran.github.io/scran_pca \
                          irlba.tag=https://ltla.github.io/CppIrlba
 
 # When a file name is specified after GENERATE_TAGFILE, doxygen will create a

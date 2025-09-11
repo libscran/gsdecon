@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
-<tagfile doxygen_version="1.9.8">
+<tagfile doxygen_version="1.12.0">
   <compound kind="file">
     <name>blocked.hpp</name>
     <path>gsdecon/</path>
@@ -118,17 +118,17 @@
     <filename>structgsdecon_1_1Results.html</filename>
     <templarg>typename Float_</templarg>
     <member kind="variable">
-      <type>std::vector&lt; double &gt;</type>
+      <type>std::vector&lt; Float_ &gt;</type>
       <name>scores</name>
       <anchorfile>structgsdecon_1_1Results.html</anchorfile>
-      <anchor>a65b1bef06745e0e3e95bfd82a74d6e67</anchor>
+      <anchor>ab6c32ea41976a14f96f630bd24e57759</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
-      <type>std::vector&lt; double &gt;</type>
+      <type>std::vector&lt; Float_ &gt;</type>
       <name>weights</name>
       <anchorfile>structgsdecon_1_1Results.html</anchorfile>
-      <anchor>af94871fbae1f5a4c494e41d80fff4381</anchor>
+      <anchor>a63423d8b7e2cb1c48444ea6c3f3205c0</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -142,15 +142,15 @@
       <type>void</type>
       <name>compute_blocked</name>
       <anchorfile>namespacegsdecon.html</anchorfile>
-      <anchor>a8dee2458dda74541956c0d297afce186</anchor>
-      <arglist>(const tatami::Matrix&lt; Value_, Index_ &gt; &amp;matrix, const Block_ *block, const Options &amp;options, const Buffers&lt; Float_ &gt; &amp;output)</arglist>
+      <anchor>a5e935aeffed62670d96704e921d4ca9d</anchor>
+      <arglist>(const tatami::Matrix&lt; Value_, Index_ &gt; &amp;matrix, const Block_ *const block, const Options &amp;options, const Buffers&lt; Float_ &gt; &amp;output)</arglist>
     </member>
     <member kind="function">
       <type>Results&lt; Float_ &gt;</type>
       <name>compute_blocked</name>
       <anchorfile>namespacegsdecon.html</anchorfile>
-      <anchor>a190a7078286a55dab7001ef24927af74</anchor>
-      <arglist>(const tatami::Matrix&lt; Value_, Index_ &gt; &amp;matrix, const Block_ *block, const Options &amp;options)</arglist>
+      <anchor>a50697a0a6940d3990c5ec56d1071907c</anchor>
+      <arglist>(const tatami::Matrix&lt; Value_, Index_ &gt; &amp;matrix, const Block_ *const block, const Options &amp;options)</arglist>
     </member>
     <member kind="function">
       <type>void</type>

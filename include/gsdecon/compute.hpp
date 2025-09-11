@@ -7,6 +7,7 @@
 #include "tatami/tatami.hpp"
 #include "irlba/irlba.hpp"
 #include "scran_pca/scran_pca.hpp"
+#include "sanisizer/sanisizer.hpp"
 
 #include "Options.hpp"
 #include "Results.hpp"
@@ -53,9 +54,9 @@ void compute(const tatami::Matrix<Value_, Index_>& matrix, const Options& option
     sopt.realize_matrix = options.realize_matrix;
     sopt.num_threads = options.num_threads;
     sopt.irlba_options = options.irlba_options;
-    auto res = scran_pca::simple_pca(matrix, sopt);
+    const auto res = scran_pca::simple_pca(matrix, sopt);
 
-    double shift = std::accumulate(res.center.begin(), res.center.end(), 0.0) / matrix.nrow();
+    const Float_ shift = std::accumulate(res.center.begin(), res.center.end(), static_cast<Float_>(0)) / matrix.nrow();
     std::fill_n(output.scores, matrix.ncol(), shift);
     internal::process_output(res.rotation, res.components, options.scale, res.scale, output);
 }
@@ -77,8 +78,8 @@ void compute(const tatami::Matrix<Value_, Index_>& matrix, const Options& option
 template<typename Float_ = double, typename Value_, typename Index_>
 Results<Float_> compute(const tatami::Matrix<Value_, Index_>& matrix, const Options& options) {
     Results<Float_> output;
-    output.weights.resize(matrix.nrow());
-    output.scores.resize(matrix.ncol());
+    sanisizer::resize(output.weights, matrix.nrow());
+    sanisizer::resize(output.scores, matrix.ncol());
 
     Buffers<Float_> buffers;
     buffers.weights = output.weights.data();

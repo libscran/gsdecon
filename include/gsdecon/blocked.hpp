@@ -4,10 +4,10 @@
 #include <vector>
 
 #include "Eigen/Dense"
-
 #include "tatami/tatami.hpp"
 #include "irlba/irlba.hpp"
 #include "scran_pca/scran_pca.hpp"
+#include "sanisizer/sanisizer.hpp"
 
 #include "Options.hpp"
 #include "Results.hpp"
@@ -46,7 +46,7 @@ namespace gsdecon {
  * @param[out] output Collection of buffers in which to store the scores and weights.
  */
 template<typename Value_, typename Index_, typename Block_, typename Float_>
-void compute_blocked(const tatami::Matrix<Value_, Index_>& matrix, const Block_* block, const Options& options, const Buffers<Float_>& output) {
+void compute_blocked(const tatami::Matrix<Value_, Index_>& matrix, const Block_* const block, const Options& options, const Buffers<Float_>& output) {
     if (internal::check_edge_cases(matrix, options.rank, output)) {
         return;
     }
@@ -59,35 +59,31 @@ void compute_blocked(const tatami::Matrix<Value_, Index_>& matrix, const Block_*
     bopt.realize_matrix = options.realize_matrix;
     bopt.num_threads = options.num_threads;
     bopt.irlba_options = options.irlba_options;
-    auto res = scran_pca::blocked_pca(matrix, block, bopt);
+    const auto res = scran_pca::blocked_pca(matrix, block, bopt);
 
-    // Here, we restore the block-specific centers. Don't be tempted into
-    // using MultiBatchPca, as that doesn't yield a rank-1 approximation
-    // that preserves global shifts between blocks.
+    // Here, we restore the block-specific centers.
     static_assert(!Eigen::MatrixXd::IsRowMajor); // just double-checking...
-    const double* cptr = res.center.data();
-    size_t nfeat = res.center.cols();
-    size_t nblocks = res.center.rows();
-    std::vector<double> block_means(nblocks);
+    const auto nfeat = res.center.cols();
+    const auto nblocks = res.center.rows();
+    auto block_means = sanisizer::create<std::vector<Float_> >(nblocks);
 
-    for (size_t f = 0; f < nfeat; ++f, cptr += nblocks) {
+    for (decltype(I(nfeat)) f = 0; f < nfeat; ++f) {
 #ifdef _OPENMP
         #pragma omp simd
 #endif
-        for (size_t b = 0; b < nblocks; ++b) {
-            block_means[b] += cptr[b];
+        for (decltype(I(nblocks)) b = 0; b < nblocks; ++b) {
+            block_means[b] += res.center.coeff(b, f);
         }
     }
-    double denom = nfeat;
     for (auto& b : block_means) {
-        b /= denom;
+        b /= nfeat;
     }
 
-    size_t ncells = res.components.cols();
+    const auto ncells = res.components.cols();
 #ifdef _OPENMP
     #pragma omp simd
 #endif
-    for (size_t c = 0; c < ncells; ++c) {
+    for (decltype(I(ncells)) c = 0; c < ncells; ++c) {
         output.scores[c] = block_means[block[c]];
     }
     internal::process_output(res.rotation, res.components, options.scale, res.scale, output);
@@ -112,10 +108,10 @@ void compute_blocked(const tatami::Matrix<Value_, Index_>& matrix, const Block_*
  * @return Results of the gene set score calculation.
  */
 template<typename Float_ = double, typename Value_, typename Index_, typename Block_>
-Results<Float_> compute_blocked(const tatami::Matrix<Value_, Index_>& matrix, const Block_* block, const Options& options) {
+Results<Float_> compute_blocked(const tatami::Matrix<Value_, Index_>& matrix, const Block_* const block, const Options& options) {
     Results<Float_> output;
-    output.weights.resize(matrix.nrow());
-    output.scores.resize(matrix.ncol());
+    sanisizer::resize(output.weights, matrix.nrow());
+    sanisizer::resize(output.scores, matrix.ncol());
 
     Buffers<Float_> buffers;
     buffers.weights = output.weights.data();

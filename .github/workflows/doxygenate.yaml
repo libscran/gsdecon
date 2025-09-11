@@ -31,11 +31,6 @@ jobs:
       with:
         args: -O docs/scran_blocks.tag https://libscran.github.io/scran_blocks/scran_blocks.tag
 
-    - name: Download scran_pca tagfile
-      uses: wei/wget@v1
-      with:
-        args: -O docs/scran_pca.tag https://libscran.github.io/scran_pca/scran_pca.tag
-
     - name: Doxygen Action
       uses: mattnotmitt/doxygen-action@v1
       with:

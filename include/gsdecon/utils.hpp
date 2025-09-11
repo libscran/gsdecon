@@ -65,9 +65,34 @@ void process_output(const Eigen::MatrixXd& rotation, const Eigen::MatrixXd& comp
     const auto ncells = components.cols();
     static_assert(!Eigen::MatrixXd::IsRowMajor); // just double-checking...
 
+    /*
+     * Consider a matrix of PC scores 'P' and a rotation matrix 'R', plus a centering vector 'C' and scaling vector 'S'.
+     * The low-rank approximation is defined as (using R syntax):
+     *
+     *     L = outer(R, P) * S + C 
+     *       = outer(R * S, P) + C
+     *
+     * Remember that we want the column means of the rank-1 approximation, so:
+     *
+     *     colMeans(L) = colMeans(R * S) * P + colMeans(C)
+     *
+     * When R and P only have 1 column, the above expression simplifies to:
+     *
+     *     colMeans(L) = mean(R * S) * P + colMeans(C)
+     *
+     * When R and P have multiple columns, we recognize that the outer product can be decomposed to the sum of the outer products of corresponding columns.
+     * This allows us to easily loop over the PCs to compute each contribution to the column means.
+     *
+     *     colMeans(L) = outer(R_1, P_1) * S + outer(R_2 * S, P_2) * S + ... + outer(R_n, P_n) * S + colMeans(C)
+     *                 = mean(R_1 * S) * P_1 + mean(R_2 * S) * P_2 + ... mean(R_n * S) * P_n + colMeans(C)
+     *
+     * If scale = false, then S can be dropped from the above expressions.
+     */
+
     if (npcs > 1) {
         auto multipliers = sanisizer::create<std::vector<Float_> >(npcs);
         std::fill_n(output.weights, nfeat, 0);
+
         for (decltype(I(npcs)) pc = 0; pc < npcs; ++pc) {
             const auto rptr = rotation.data() + sanisizer::product_unsafe<std::size_t>(pc, nfeat); 
 
@@ -76,20 +101,9 @@ void process_output(const Eigen::MatrixXd& rotation, const Eigen::MatrixXd& comp
                 output.weights[i] += val * val;
             }
 
-            /*
-             * We have the first PC 'P' and a column of the rotation vector 'R',
-             * plus a centering vector 'C' and scaling vector 'S'. The low-rank
-             * approximation is defined as (using R syntax):
-             *
-             *     L = outer(R, P) * S + C 
-             *       = outer(R * S, P) + C
-             *
-             * Remember that we want the column means of the rank-1 approximation, so:
-             *
-             *     colMeans(L) = mean(R * S) * P + colMeans(C)
-             *
-             * If scale = false, then S can be dropped from the above expression.
-             */
+            // Multipliers correspond to 'mean(R_x * S)' in the equations above.
+            // We don't calculate the full 'mean(R_x * S) * P_x' as 'components' is column-major,
+            // so it's more efficient to calculate it for each cell rather than for each PC.
             if (scale) {
                 multipliers[pc] = std::inner_product(rptr, rptr + nfeat, scale_v.data(), static_cast<Float_>(0));
             } else {
@@ -102,6 +116,7 @@ void process_output(const Eigen::MatrixXd& rotation, const Eigen::MatrixXd& comp
             output.weights[i] = std::sqrt(output.weights[i] / npcs);
         }
 
+        // 'scores' should be filled with the (possibly block-specific) center means before this function is called.
         for (decltype(I(ncells)) c = 0; c < ncells; ++c) {
             const auto cptr = components.data() + sanisizer::product_unsafe<std::size_t>(c, npcs);
             output.scores[c] += std::inner_product(multipliers.begin(), multipliers.end(), cptr, static_cast<Float_>(0));
@@ -121,8 +136,10 @@ void process_output(const Eigen::MatrixXd& rotation, const Eigen::MatrixXd& comp
         }
         multiplier /= nfeat;
 
+        // 'scores' should be filled with the (possibly block-specific) center means before this function is called.
+        const auto cptr = components.data();
         for (decltype(I(ncells)) c = 0; c < ncells; ++c) {
-            output.scores[c] += components.coeff(c) * multiplier;
+            output.scores[c] += cptr[c] * multiplier;
         }
     }
 }

@@ -27,12 +27,15 @@ struct Options {
 
     /**
      * Rank of the low-rank approximation.
+     * Higher values can capture more biological signal at the risk of including more noise.
+     * The default value of 1 assumes that each gene set only describes a single coordinated biological function.
      */
     int rank = 1;
 
     /**
      * Should genes be scaled to unit variance?
      * Genes with zero variance are ignored.
+     * This ensures that each gene contributes equally to the PCA, favoring consistent variation across many genes rather than large variation in a few genes.
      */
     bool scale = false;
 
@@ -49,8 +52,7 @@ struct Options {
 
     /**
      * Number of threads to use.
-     * The parallelization scheme is defined by `scran_pca::SimplePcaOptions::num_threads` (for `compute()`) 
-     * or `scran_pca::BlockedPcaOptions::num_threads` (for `compute_blocked()`).
+     * The parallelization scheme is determined by `tatami::parallelize()` and `irlba::parallelize()`.
      */
     int num_threads = 1;
 

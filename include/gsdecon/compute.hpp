@@ -32,13 +32,12 @@ namespace gsdecon {
  * Increasing the rank of the approximation may capture more biological signal but also increases noise in the per-cell scores.
  * If higher ranks are used, each gene's weight is instead defined as the root mean square of that gene's values across all rotation vectors.
  *
- * @tparam Value_ Floating-point type for the data.
- * @tparam Index_ Integer type for the indices.
- * @tparam Float_ Floating-point type for the output.
+ * @tparam Value_ Floating-point type of the data.
+ * @tparam Index_ Integer type of the indices.
+ * @tparam Float_ Floating-point type of the output.
  *
- * @param[in] matrix An input **tatami** matrix.
- * Columns should contain cells while rows should contain genes in the set of interest.
- * Entries are typically be log-expression values. 
+ * @param[in] matrix A matrix where columns correspond to cells and rows correspond to genes.
+ * Entries are typically log-expression values. 
  * @param options Further options. 
  * @param[out] output Collection of buffers in which to store the scores and weights.
  */
@@ -64,13 +63,12 @@ void compute(const tatami::Matrix<Value_, Index_>& matrix, const Options& option
 /**
  * Overload of `compute()` that allocates memory for the results.
  *
- * @tparam Float_ Floating-point type for the output.
- * @tparam Value_ Floating-point type for the data.
- * @tparam Index_ Integer type for the indices.
+ * @tparam Float_ Floating-point type of the output.
+ * @tparam Value_ Floating-point type of the data.
+ * @tparam Index_ Integer type of the indices.
  *
- * @param[in] matrix An input **tatami** matrix.
- * Columns should contain cells while rows should contain genes.
- * Entries are typically be log-expression values. 
+ * @param[in] matrix A matrix where columns correspond to cells and rows correspond to genes.
+ * Entries are typically log-expression values. 
  * @param options Further options. 
  *
  * @return Results of the gene set score calculation.

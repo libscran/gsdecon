@@ -68,9 +68,6 @@ void compute_blocked(const tatami::Matrix<Value_, Index_>& matrix, const Block_*
     auto block_means = sanisizer::create<std::vector<Float_> >(nblocks);
 
     for (decltype(I(nfeat)) f = 0; f < nfeat; ++f) {
-#ifdef _OPENMP
-        #pragma omp simd
-#endif
         for (decltype(I(nblocks)) b = 0; b < nblocks; ++b) {
             block_means[b] += res.center.coeff(b, f);
         }
@@ -80,9 +77,6 @@ void compute_blocked(const tatami::Matrix<Value_, Index_>& matrix, const Block_*
     }
 
     const auto ncells = res.components.cols();
-#ifdef _OPENMP
-    #pragma omp simd
-#endif
     for (decltype(I(ncells)) c = 0; c < ncells; ++c) {
         output.scores[c] = block_means[block[c]];
     }

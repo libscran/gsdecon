@@ -71,9 +71,6 @@ void process_output(const Eigen::MatrixXd& rotation, const Eigen::MatrixXd& comp
         for (decltype(I(npcs)) pc = 0; pc < npcs; ++pc) {
             const auto rptr = rotation.data() + sanisizer::product_unsafe<std::size_t>(pc, nfeat); 
 
-#ifdef _OPENMP
-            #pragma omp simd
-#endif
             for (decltype(I(nfeat)) i = 0; i < nfeat; ++i) {
                 const auto val = rptr[i];
                 output.weights[i] += val * val;
@@ -101,16 +98,10 @@ void process_output(const Eigen::MatrixXd& rotation, const Eigen::MatrixXd& comp
             multipliers[pc] /= nfeat;
         }
 
-#ifdef _OPENMP
-        #pragma omp simd
-#endif
         for (decltype(I(nfeat)) i = 0; i < nfeat; ++i) {
             output.weights[i] = std::sqrt(output.weights[i] / npcs);
         }
 
-#ifdef _OPENMP
-        #pragma omp parallel for
-#endif
         for (decltype(I(ncells)) c = 0; c < ncells; ++c) {
             const auto cptr = components.data() + sanisizer::product_unsafe<std::size_t>(c, npcs);
             output.scores[c] += std::inner_product(multipliers.begin(), multipliers.end(), cptr, static_cast<Float_>(0));
@@ -130,9 +121,6 @@ void process_output(const Eigen::MatrixXd& rotation, const Eigen::MatrixXd& comp
         }
         multiplier /= nfeat;
 
-#ifdef _OPENMP
-        #pragma omp simd
-#endif
         for (decltype(I(ncells)) c = 0; c < ncells; ++c) {
             output.scores[c] += components.coeff(c) * multiplier;
         }

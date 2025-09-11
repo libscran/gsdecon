@@ -104,8 +104,16 @@ void compute_blocked(const tatami::Matrix<Value_, Index_>& matrix, const Block_*
 template<typename Float_ = double, typename Value_, typename Index_, typename Block_>
 Results<Float_> compute_blocked(const tatami::Matrix<Value_, Index_>& matrix, const Block_* const block, const Options& options) {
     Results<Float_> output;
-    sanisizer::resize(output.weights, matrix.nrow());
-    sanisizer::resize(output.scores, matrix.ncol());
+    sanisizer::resize(output.weights, matrix.nrow()
+#ifdef SCRAN_QC_TEST_INIT
+        , SCRAN_QC_TEST_INIT
+#endif
+    );
+    sanisizer::resize(output.scores, matrix.ncol()
+#ifdef SCRAN_QC_TEST_INIT
+        , SCRAN_QC_TEST_INIT
+#endif
+    );
 
     Buffers<Float_> buffers;
     buffers.weights = output.weights.data();

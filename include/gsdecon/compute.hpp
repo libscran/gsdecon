@@ -78,8 +78,16 @@ void compute(const tatami::Matrix<Value_, Index_>& matrix, const Options& option
 template<typename Float_ = double, typename Value_, typename Index_>
 Results<Float_> compute(const tatami::Matrix<Value_, Index_>& matrix, const Options& options) {
     Results<Float_> output;
-    sanisizer::resize(output.weights, matrix.nrow());
-    sanisizer::resize(output.scores, matrix.ncol());
+    sanisizer::resize(output.weights, matrix.nrow()
+#ifdef SCRAN_QC_TEST_INIT
+        , SCRAN_QC_TEST_INIT
+#endif
+    );
+    sanisizer::resize(output.scores, matrix.ncol()
+#ifdef SCRAN_QC_TEST_INIT
+        , SCRAN_QC_TEST_INIT
+#endif
+    );
 
     Buffers<Float_> buffers;
     buffers.weights = output.weights.data();

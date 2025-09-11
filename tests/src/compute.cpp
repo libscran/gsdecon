@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 
-#include "gsdecon/gsdecon.hpp"
 #include "scran_tests/scran_tests.hpp"
+#include "gsdecon/gsdecon.hpp"
 
 class GsdeconSimpleTest : public ::testing::TestWithParam<std::tuple<int, bool> > {
 protected:
@@ -153,8 +153,14 @@ TEST_P(GsdeconBlockTest, ShiftSanity) {
     // Shifting everything up in one batch. This should manifest as a
     // corresponding shift in the scores for that batch. 
     const double CONSTANT = 5.6;
-    auto added = tatami::make_DelayedUnaryIsometricOperation(matrix, tatami::DelayedUnaryIsometricArithmeticScalar<tatami::ArithmeticOperation::ADD, false, double, double>(CONSTANT));
-    auto combined = tatami::make_DelayedBind(std::vector<std::shared_ptr<tatami::NumericMatrix> >{ matrix, added }, false);
+    auto added = std::make_shared<tatami::DelayedUnaryIsometricOperation<double, double, int> >(
+        matrix,
+        std::make_shared<tatami::DelayedUnaryIsometricAddScalarHelper<double, double, int, double> >(CONSTANT)
+    );
+    auto combined = std::make_shared<tatami::DelayedBind<double, int> >(
+        std::vector<std::shared_ptr<tatami::NumericMatrix> >{ matrix, added },
+        false
+    );
 
     gsdecon::Options opt;
     opt.rank = rank;
@@ -196,8 +202,14 @@ TEST_P(GsdeconBlockTest, ScaleSanity) {
     // corresponding scaling in the scores for that batch, regardless
     // of whether options.scale is true or not.
     const double CONSTANT = 1.45;
-    auto scaled = tatami::make_DelayedUnaryIsometricOperation(matrix, tatami::DelayedUnaryIsometricArithmeticScalar<tatami::ArithmeticOperation::MULTIPLY, false, double, double>(CONSTANT));
-    auto combined = tatami::make_DelayedBind(std::vector<std::shared_ptr<tatami::NumericMatrix> >{ matrix, scaled }, false);
+    auto scaled = std::make_shared<tatami::DelayedUnaryIsometricOperation<double, double, int> >(
+        matrix,
+        std::make_shared<tatami::DelayedUnaryIsometricMultiplyScalarHelper<double, double, int, double> >(CONSTANT)
+    );
+    auto combined = std::make_shared<tatami::DelayedBind<double, int> >(
+        std::vector<std::shared_ptr<tatami::NumericMatrix> >{ matrix, scaled },
+        false
+    );
 
     gsdecon::Options opt;
     opt.rank = rank;

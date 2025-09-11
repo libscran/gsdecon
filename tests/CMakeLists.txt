@@ -39,9 +39,5 @@ macro(create_test name)
 endmacro()
 
 create_test(libtest)
-
-find_package(OpenMP)
-if (OpenMP_FOUND)
-    create_test(omptest)
-    target_link_libraries(omptest OpenMP::OpenMP_CXX)
-endif()
+create_test(dirtytest)
+target_compile_definitions(dirtytest PRIVATE "SCRAN_QC_TEST_INIT=scran_tests::initial_value()")

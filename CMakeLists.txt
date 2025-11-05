@@ -26,7 +26,7 @@ else()
     find_package(libscran_scran_pca 0.1.0 CONFIG REQUIRED)
     find_package(libscran_scran_blocks 0.1.0 CONFIG REQUIRED)
     find_package(ltla_irlba 2.0.0 CONFIG REQUIRED)
-    find_package(Eigen3 3.4.0 REQUIRED NO_MODULE)
+    find_package(Eigen3 5.0.0 REQUIRED NO_MODULE)
     find_package(ltla_sanisizer 0.1.3 CONFIG REQUIRED)
 endif()
 

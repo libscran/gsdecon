@@ -106,10 +106,10 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
-      <type>irlba::Options</type>
+      <type>irlba::Options&lt; Eigen::VectorXd &gt;</type>
       <name>irlba_options</name>
       <anchorfile>structgsdecon_1_1Options.html</anchorfile>
-      <anchor>ab9e656e7c0314c7e20ae84ae8da7fcc5</anchor>
+      <anchor>a777c653ebda6fff2ac1a9c2df270b718</anchor>
       <arglist></arglist>
     </member>
   </compound>

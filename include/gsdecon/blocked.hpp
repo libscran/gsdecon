@@ -47,7 +47,7 @@ namespace gsdecon {
  */
 template<typename Value_, typename Index_, typename Block_, typename Float_>
 void compute_blocked(const tatami::Matrix<Value_, Index_>& matrix, const Block_* const block, const Options& options, const Buffers<Float_>& output) {
-    if (internal::check_edge_cases(matrix, options.rank, output)) {
+    if (check_edge_cases(matrix, options.rank, output)) {
         return;
     }
 
@@ -67,8 +67,8 @@ void compute_blocked(const tatami::Matrix<Value_, Index_>& matrix, const Block_*
     const auto nblocks = res.center.rows();
     auto block_means = sanisizer::create<std::vector<Float_> >(nblocks);
 
-    for (decltype(I(nfeat)) f = 0; f < nfeat; ++f) {
-        for (decltype(I(nblocks)) b = 0; b < nblocks; ++b) {
+    for (I<decltype(nfeat)> f = 0; f < nfeat; ++f) {
+        for (I<decltype(nblocks)> b = 0; b < nblocks; ++b) {
             block_means[b] += res.center.coeff(b, f);
         }
     }
@@ -77,10 +77,10 @@ void compute_blocked(const tatami::Matrix<Value_, Index_>& matrix, const Block_*
     }
 
     const auto ncells = res.components.cols();
-    for (decltype(I(ncells)) c = 0; c < ncells; ++c) {
+    for (I<decltype(ncells)> c = 0; c < ncells; ++c) {
         output.scores[c] = block_means[block[c]];
     }
-    internal::process_output(res.rotation, res.components, options.scale, res.scale, output);
+    process_output(res.rotation, res.components, options.scale, res.scale, output);
 }
 
 /**

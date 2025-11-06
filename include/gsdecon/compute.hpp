@@ -43,7 +43,7 @@ namespace gsdecon {
  */
 template<typename Value_, typename Index_, typename Float_>
 void compute(const tatami::Matrix<Value_, Index_>& matrix, const Options& options, const Buffers<Float_>& output) {
-    if (internal::check_edge_cases(matrix, options.rank, output)) {
+    if (check_edge_cases(matrix, options.rank, output)) {
         return;
     }
 
@@ -57,7 +57,7 @@ void compute(const tatami::Matrix<Value_, Index_>& matrix, const Options& option
 
     const Float_ shift = std::accumulate(res.center.begin(), res.center.end(), static_cast<Float_>(0)) / matrix.nrow();
     std::fill_n(output.scores, matrix.ncol(), shift);
-    internal::process_output(res.rotation, res.components, options.scale, res.scale, output);
+    process_output(res.rotation, res.components, options.scale, res.scale, output);
 }
 
 /**

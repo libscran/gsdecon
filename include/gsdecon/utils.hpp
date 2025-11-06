@@ -15,11 +15,7 @@
 namespace gsdecon {
 
 template<typename Input_>
-std::remove_cv_t<std::remove_reference_t<Input_> > I(const Input_ x) {
-    return x;
-}
-
-namespace internal {
+using I = typename std::remove_cv<typename std::remove_reference<Input_>::type>::type;
 
 template<typename Value_, typename Index_, typename Float_>
 bool check_edge_cases(const tatami::Matrix<Value_, Index_>& matrix, const int rank, const Buffers<Float_>& output) {
@@ -93,10 +89,10 @@ void process_output(const Eigen::MatrixXd& rotation, const Eigen::MatrixXd& comp
         auto multipliers = sanisizer::create<std::vector<Float_> >(npcs);
         std::fill_n(output.weights, nfeat, 0);
 
-        for (decltype(I(npcs)) pc = 0; pc < npcs; ++pc) {
+        for (I<decltype(npcs)> pc = 0; pc < npcs; ++pc) {
             const auto rptr = rotation.data() + sanisizer::product_unsafe<std::size_t>(pc, nfeat); 
 
-            for (decltype(I(nfeat)) i = 0; i < nfeat; ++i) {
+            for (I<decltype(nfeat)> i = 0; i < nfeat; ++i) {
                 const auto val = rptr[i];
                 output.weights[i] += val * val;
             }
@@ -112,19 +108,19 @@ void process_output(const Eigen::MatrixXd& rotation, const Eigen::MatrixXd& comp
             multipliers[pc] /= nfeat;
         }
 
-        for (decltype(I(nfeat)) i = 0; i < nfeat; ++i) {
+        for (I<decltype(nfeat)> i = 0; i < nfeat; ++i) {
             output.weights[i] = std::sqrt(output.weights[i] / npcs);
         }
 
         // 'scores' should be filled with the (possibly block-specific) center means before this function is called.
-        for (decltype(I(ncells)) c = 0; c < ncells; ++c) {
+        for (I<decltype(ncells)> c = 0; c < ncells; ++c) {
             const auto cptr = components.data() + sanisizer::product_unsafe<std::size_t>(c, npcs);
             output.scores[c] += std::inner_product(multipliers.begin(), multipliers.end(), cptr, static_cast<Float_>(0));
         }
 
     } else {
         const auto rptr = rotation.data();
-        for (decltype(I(nfeat)) i = 0; i < nfeat; ++i) {
+        for (I<decltype(nfeat)> i = 0; i < nfeat; ++i) {
             output.weights[i] = std::abs(rptr[i]);
         }
 
@@ -138,12 +134,10 @@ void process_output(const Eigen::MatrixXd& rotation, const Eigen::MatrixXd& comp
 
         // 'scores' should be filled with the (possibly block-specific) center means before this function is called.
         const auto cptr = components.data();
-        for (decltype(I(ncells)) c = 0; c < ncells; ++c) {
+        for (I<decltype(ncells)> c = 0; c < ncells; ++c) {
             output.scores[c] += cptr[c] * multiplier;
         }
     }
-}
-
 }
 
 }

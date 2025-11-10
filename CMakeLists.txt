@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.14)
 
 project(gsdecon
-    VERSION 0.1.0
+    VERSION 0.2.0
     DESCRIPTION "Gene set scoring with principal components"
     LANGUAGES CXX)
 
@@ -23,9 +23,9 @@ if(GSDECON_FETCH_EXTERN)
     add_subdirectory(extern)
 else()
     find_package(tatami_tatami 3.0.0 CONFIG REQUIRED)
-    find_package(libscran_scran_pca 0.1.0 CONFIG REQUIRED)
+    find_package(libscran_scran_pca 0.3.0 CONFIG REQUIRED)
     find_package(libscran_scran_blocks 0.1.0 CONFIG REQUIRED)
-    find_package(ltla_irlba 2.0.0 CONFIG REQUIRED)
+    find_package(ltla_irlba 3.0.0 CONFIG REQUIRED)
     find_package(Eigen3 5.0.0 REQUIRED NO_MODULE)
     find_package(ltla_sanisizer 0.1.3 CONFIG REQUIRED)
 endif()

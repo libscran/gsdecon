@@ -2,9 +2,9 @@
 
 include(CMakeFindDependencyMacro)
 find_dependency(tatami_tatami 3.0.0 CONFIG REQUIRED)
-find_dependency(libscran_scran_pca 0.1.0 CONFIG REQUIRED)
+find_dependency(libscran_scran_pca 0.3.0 CONFIG REQUIRED)
 find_dependency(libscran_scran_blocks 0.1.0 CONFIG REQUIRED)
-find_dependency(ltla_irlba 2.0.0 CONFIG REQUIRED)
+find_dependency(ltla_irlba 3.0.0 CONFIG REQUIRED)
 find_dependency(Eigen3 5.0.0 REQUIRED NO_MODULE)
 find_dependency(ltla_sanisizer 0.1.3 CONFIG REQUIRED)
 

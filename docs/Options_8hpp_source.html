@@ -104,7 +104,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define GSDECON_OPTIONS_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="codeRef" href="https://libscran.github.io/scran_blocks/scran__blocks_8hpp.html">scran_blocks/scran_blocks.hpp</a>&quot;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="codeRef" href="https://ltla.github.io/CppIrlba/irlba_8hpp.html">irlba/irlba.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="codeRef" href="https://libscran.github.io/irlba/irlba_8hpp.html">irlba/irlba.hpp</a>&quot;</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;Eigen/Dense&quot;</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacegsdecon.html">gsdecon</a> {</div>
@@ -112,7 +112,7 @@ $(function(){ initResizable(false); });
 <div class="foldopen" id="foldopen00018" data-start="{" data-end="};">
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="structgsdecon_1_1Options.html">   18</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structgsdecon_1_1Options.html">Options</a> {</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <a class="code hl_struct" href="structgsdecon_1_1Options.html">Options</a>() {</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <a class="code hl_variable" href="structgsdecon_1_1Options.html#a777c653ebda6fff2ac1a9c2df270b718">irlba_options</a>.<a class="code hl_variableRef" href="https://ltla.github.io/CppIrlba/structirlba_1_1Options.html#a95fbe9c985391959881f1107a87320bc">cap_number</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <a class="code hl_variable" href="structgsdecon_1_1Options.html#a777c653ebda6fff2ac1a9c2df270b718">irlba_options</a>.<a class="code hl_variableRef" href="https://libscran.github.io/irlba/structirlba_1_1Options.html#a95fbe9c985391959881f1107a87320bc">cap_number</a> = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    }</div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="structgsdecon_1_1Options.html#a294f5013812f89fa2ab72baa6c30124e">   34</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structgsdecon_1_1Options.html#a294f5013812f89fa2ab72baa6c30124e">rank</a> = 1;</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
@@ -126,14 +126,14 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="structgsdecon_1_1Options.html#a0d6e41781464027402301047c62918e2">   64</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="structgsdecon_1_1Options.html#a0d6e41781464027402301047c62918e2">realize_matrix</a> = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="structgsdecon_1_1Options.html#a777c653ebda6fff2ac1a9c2df270b718">   69</a></span>    <a class="code hl_structRef" href="https://ltla.github.io/CppIrlba/structirlba_1_1Options.html">irlba::Options&lt;Eigen::VectorXd&gt;</a> <a class="code hl_variable" href="structgsdecon_1_1Options.html#a777c653ebda6fff2ac1a9c2df270b718">irlba_options</a>;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="structgsdecon_1_1Options.html#a777c653ebda6fff2ac1a9c2df270b718">   69</a></span>    <a class="code hl_structRef" href="https://libscran.github.io/irlba/structirlba_1_1Options.html">irlba::Options&lt;Eigen::VectorXd&gt;</a> <a class="code hl_variable" href="structgsdecon_1_1Options.html#a777c653ebda6fff2ac1a9c2df270b718">irlba_options</a>;</div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>};</div>
 </div>
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>}</div>
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="airlba_8hpp_html"><div class="ttname"><a href="https://ltla.github.io/CppIrlba/irlba_8hpp.html">irlba.hpp</a></div></div>
+<div class="ttc" id="airlba_8hpp_html"><div class="ttname"><a href="https://libscran.github.io/irlba/irlba_8hpp.html">irlba.hpp</a></div></div>
 <div class="ttc" id="anamespacegsdecon_html"><div class="ttname"><a href="namespacegsdecon.html">gsdecon</a></div><div class="ttdoc">Gene set scoring with gsdecon.</div><div class="ttdef"><b>Definition</b> blocked.hpp:21</div></div>
 <div class="ttc" id="anamespacescran__blocks_html_ac2412948da94055ff438267ba089ba97"><div class="ttname"><a href="https://libscran.github.io/scran_blocks/namespacescran__blocks.html#ac2412948da94055ff438267ba089ba97">scran_blocks::WeightPolicy</a></div><div class="ttdeci">WeightPolicy</div></div>
 <div class="ttc" id="ascran__blocks_8hpp_html"><div class="ttname"><a href="https://libscran.github.io/scran_blocks/scran__blocks_8hpp.html">scran_blocks.hpp</a></div></div>
@@ -145,8 +145,8 @@ $(function(){ initResizable(false); });
 <div class="ttc" id="astructgsdecon_1_1Options_html_a777c653ebda6fff2ac1a9c2df270b718"><div class="ttname"><a href="structgsdecon_1_1Options.html#a777c653ebda6fff2ac1a9c2df270b718">gsdecon::Options::irlba_options</a></div><div class="ttdeci">irlba::Options&lt; Eigen::VectorXd &gt; irlba_options</div><div class="ttdef"><b>Definition</b> Options.hpp:69</div></div>
 <div class="ttc" id="astructgsdecon_1_1Options_html_ab8605d018810bc716fae33bd97995e60"><div class="ttname"><a href="structgsdecon_1_1Options.html#ab8605d018810bc716fae33bd97995e60">gsdecon::Options::num_threads</a></div><div class="ttdeci">int num_threads</div><div class="ttdef"><b>Definition</b> Options.hpp:58</div></div>
 <div class="ttc" id="astructgsdecon_1_1Options_html_aeda0448b282093b21643717c1d615c09"><div class="ttname"><a href="structgsdecon_1_1Options.html#aeda0448b282093b21643717c1d615c09">gsdecon::Options::scale</a></div><div class="ttdeci">bool scale</div><div class="ttdef"><b>Definition</b> Options.hpp:41</div></div>
-<div class="ttc" id="astructirlba_1_1Options_html"><div class="ttname"><a href="https://ltla.github.io/CppIrlba/structirlba_1_1Options.html">irlba::Options</a></div></div>
-<div class="ttc" id="astructirlba_1_1Options_html_a95fbe9c985391959881f1107a87320bc"><div class="ttname"><a href="https://ltla.github.io/CppIrlba/structirlba_1_1Options.html#a95fbe9c985391959881f1107a87320bc">irlba::Options::cap_number</a></div><div class="ttdeci">bool cap_number</div></div>
+<div class="ttc" id="astructirlba_1_1Options_html"><div class="ttname"><a href="https://libscran.github.io/irlba/structirlba_1_1Options.html">irlba::Options</a></div></div>
+<div class="ttc" id="astructirlba_1_1Options_html_a95fbe9c985391959881f1107a87320bc"><div class="ttname"><a href="https://libscran.github.io/irlba/structirlba_1_1Options.html#a95fbe9c985391959881f1107a87320bc">irlba::Options::cap_number</a></div><div class="ttdeci">bool cap_number</div></div>
 <div class="ttc" id="astructscran__blocks_1_1VariableWeightParameters_html"><div class="ttname"><a href="https://libscran.github.io/scran_blocks/structscran__blocks_1_1VariableWeightParameters.html">scran_blocks::VariableWeightParameters</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

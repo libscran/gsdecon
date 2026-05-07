@@ -1,11 +1,11 @@
 var searchData=
 [
-  ['centered_2ehpp_0',['centered.hpp',['https://ltla.github.io/CppIrlba/centered_8hpp.html',1,'']]],
+  ['centered_2ehpp_0',['centered.hpp',['https://libscran.github.io/irlba/centered_8hpp.html',1,'']]],
   ['compare_5fhelpers_2ehpp_1',['compare_helpers.hpp',['https://tatami-inc.github.io/tatami/binary_2compare__helpers_8hpp.html',1,'(Global Namespace)'],['https://tatami-inc.github.io/tatami/unary_2compare__helpers_8hpp.html',1,'(Global Namespace)']]],
   ['compare_5futils_2ehpp_2',['compare_utils.hpp',['https://tatami-inc.github.io/tatami/compare__utils_8hpp.html',1,'']]],
   ['compress_5fsparse_5ftriplets_2ehpp_3',['compress_sparse_triplets.hpp',['https://tatami-inc.github.io/tatami/compress__sparse__triplets_8hpp.html',1,'']]],
   ['compressedsparsematrix_2ehpp_4',['CompressedSparseMatrix.hpp',['https://tatami-inc.github.io/tatami/CompressedSparseMatrix_8hpp.html',1,'']]],
-  ['compute_2ehpp_5',['compute.hpp',['../compute_8hpp.html',1,'(Global Namespace)'],['https://ltla.github.io/CppIrlba/compute_8hpp.html',1,'(Global Namespace)']]],
+  ['compute_2ehpp_5',['compute.hpp',['../compute_8hpp.html',1,'(Global Namespace)'],['https://libscran.github.io/irlba/compute_8hpp.html',1,'(Global Namespace)']]],
   ['consecutive_5fextractor_2ehpp_6',['consecutive_extractor.hpp',['https://tatami-inc.github.io/tatami/consecutive__extractor_8hpp.html',1,'']]],
   ['consecutiveoracle_2ehpp_7',['ConsecutiveOracle.hpp',['https://tatami-inc.github.io/tatami/ConsecutiveOracle_8hpp.html',1,'']]],
   ['constantmatrix_2ehpp_8',['ConstantMatrix.hpp',['https://tatami-inc.github.io/tatami/ConstantMatrix_8hpp.html',1,'']]],

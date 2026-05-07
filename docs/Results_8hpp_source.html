@@ -105,36 +105,43 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacegsdecon.html">gsdecon</a> {</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Float_&gt;</div>
-<div class="foldopen" id="foldopen00018" data-start="{" data-end="};">
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="structgsdecon_1_1Buffers.html">   18</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structgsdecon_1_1Buffers.html">Buffers</a> {</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="structgsdecon_1_1Buffers.html#a1cb8723f84dbfd6eb01aed2eb9df3a79">   23</a></span>    Float_* <a class="code hl_variable" href="structgsdecon_1_1Buffers.html#a1cb8723f84dbfd6eb01aed2eb9df3a79">scores</a>;</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="structgsdecon_1_1Buffers.html#a5a8bf5d0934551d54bc8f1168776c294">   29</a></span>    Float_* <a class="code hl_variable" href="structgsdecon_1_1Buffers.html#a5a8bf5d0934551d54bc8f1168776c294">weights</a>;</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>};</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="codeRef" href="https://libscran.github.io/irlba/irlba_8hpp.html">irlba/irlba.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacegsdecon.html">gsdecon</a> {</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Float_&gt;</div>
+<div class="foldopen" id="foldopen00020" data-start="{" data-end="};">
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="structgsdecon_1_1Buffers.html">   20</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structgsdecon_1_1Buffers.html">Buffers</a> {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="structgsdecon_1_1Buffers.html#a1cb8723f84dbfd6eb01aed2eb9df3a79">   25</a></span>    Float_* <a class="code hl_variable" href="structgsdecon_1_1Buffers.html#a1cb8723f84dbfd6eb01aed2eb9df3a79">scores</a>;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="structgsdecon_1_1Buffers.html#a5a8bf5d0934551d54bc8f1168776c294">   31</a></span>    Float_* <a class="code hl_variable" href="structgsdecon_1_1Buffers.html#a5a8bf5d0934551d54bc8f1168776c294">weights</a>;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>};</div>
 </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Float_&gt;</div>
-<div class="foldopen" id="foldopen00037" data-start="{" data-end="};">
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="structgsdecon_1_1Results.html">   37</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structgsdecon_1_1Results.html">Results</a> {</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="structgsdecon_1_1Results.html#ab6c32ea41976a14f96f630bd24e57759">   42</a></span>    std::vector&lt;Float_&gt; <a class="code hl_variable" href="structgsdecon_1_1Results.html#ab6c32ea41976a14f96f630bd24e57759">scores</a>;</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="structgsdecon_1_1Results.html#a63423d8b7e2cb1c48444ea6c3f3205c0">   49</a></span>    std::vector&lt;Float_&gt; <a class="code hl_variable" href="structgsdecon_1_1Results.html#a63423d8b7e2cb1c48444ea6c3f3205c0">weights</a>;</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>};</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Float_&gt;</div>
+<div class="foldopen" id="foldopen00039" data-start="{" data-end="};">
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="structgsdecon_1_1Results.html">   39</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structgsdecon_1_1Results.html">Results</a> {</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="structgsdecon_1_1Results.html#ab6c32ea41976a14f96f630bd24e57759">   44</a></span>    std::vector&lt;Float_&gt; <a class="code hl_variable" href="structgsdecon_1_1Results.html#ab6c32ea41976a14f96f630bd24e57759">scores</a>;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="structgsdecon_1_1Results.html#a63423d8b7e2cb1c48444ea6c3f3205c0">   51</a></span>    std::vector&lt;Float_&gt; <a class="code hl_variable" href="structgsdecon_1_1Results.html#a63423d8b7e2cb1c48444ea6c3f3205c0">weights</a>;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="structgsdecon_1_1Results.html#ad59a851b5462073b39bd890104e3bd1d">   56</a></span>    <a class="code hl_structRef" href="https://libscran.github.io/irlba/structirlba_1_1Metrics.html">irlba::Metrics</a> <a class="code hl_variable" href="structgsdecon_1_1Results.html#ad59a851b5462073b39bd890104e3bd1d">metrics</a>;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>};</div>
 </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>}</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>}</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="airlba_8hpp_html"><div class="ttname"><a href="https://libscran.github.io/irlba/irlba_8hpp.html">irlba.hpp</a></div></div>
 <div class="ttc" id="anamespacegsdecon_html"><div class="ttname"><a href="namespacegsdecon.html">gsdecon</a></div><div class="ttdoc">Gene set scoring with gsdecon.</div><div class="ttdef"><b>Definition</b> blocked.hpp:21</div></div>
-<div class="ttc" id="astructgsdecon_1_1Buffers_html"><div class="ttname"><a href="structgsdecon_1_1Buffers.html">gsdecon::Buffers</a></div><div class="ttdoc">Buffers for the results of compute() and compute_blocked().</div><div class="ttdef"><b>Definition</b> Results.hpp:18</div></div>
-<div class="ttc" id="astructgsdecon_1_1Buffers_html_a1cb8723f84dbfd6eb01aed2eb9df3a79"><div class="ttname"><a href="structgsdecon_1_1Buffers.html#a1cb8723f84dbfd6eb01aed2eb9df3a79">gsdecon::Buffers::scores</a></div><div class="ttdeci">Float_ * scores</div><div class="ttdef"><b>Definition</b> Results.hpp:23</div></div>
-<div class="ttc" id="astructgsdecon_1_1Buffers_html_a5a8bf5d0934551d54bc8f1168776c294"><div class="ttname"><a href="structgsdecon_1_1Buffers.html#a5a8bf5d0934551d54bc8f1168776c294">gsdecon::Buffers::weights</a></div><div class="ttdeci">Float_ * weights</div><div class="ttdef"><b>Definition</b> Results.hpp:29</div></div>
-<div class="ttc" id="astructgsdecon_1_1Results_html"><div class="ttname"><a href="structgsdecon_1_1Results.html">gsdecon::Results</a></div><div class="ttdoc">Results of compute() and compute_blocked().</div><div class="ttdef"><b>Definition</b> Results.hpp:37</div></div>
-<div class="ttc" id="astructgsdecon_1_1Results_html_a63423d8b7e2cb1c48444ea6c3f3205c0"><div class="ttname"><a href="structgsdecon_1_1Results.html#a63423d8b7e2cb1c48444ea6c3f3205c0">gsdecon::Results::weights</a></div><div class="ttdeci">std::vector&lt; Float_ &gt; weights</div><div class="ttdef"><b>Definition</b> Results.hpp:49</div></div>
-<div class="ttc" id="astructgsdecon_1_1Results_html_ab6c32ea41976a14f96f630bd24e57759"><div class="ttname"><a href="structgsdecon_1_1Results.html#ab6c32ea41976a14f96f630bd24e57759">gsdecon::Results::scores</a></div><div class="ttdeci">std::vector&lt; Float_ &gt; scores</div><div class="ttdef"><b>Definition</b> Results.hpp:42</div></div>
+<div class="ttc" id="astructgsdecon_1_1Buffers_html"><div class="ttname"><a href="structgsdecon_1_1Buffers.html">gsdecon::Buffers</a></div><div class="ttdoc">Buffers for the results of compute() and compute_blocked().</div><div class="ttdef"><b>Definition</b> Results.hpp:20</div></div>
+<div class="ttc" id="astructgsdecon_1_1Buffers_html_a1cb8723f84dbfd6eb01aed2eb9df3a79"><div class="ttname"><a href="structgsdecon_1_1Buffers.html#a1cb8723f84dbfd6eb01aed2eb9df3a79">gsdecon::Buffers::scores</a></div><div class="ttdeci">Float_ * scores</div><div class="ttdef"><b>Definition</b> Results.hpp:25</div></div>
+<div class="ttc" id="astructgsdecon_1_1Buffers_html_a5a8bf5d0934551d54bc8f1168776c294"><div class="ttname"><a href="structgsdecon_1_1Buffers.html#a5a8bf5d0934551d54bc8f1168776c294">gsdecon::Buffers::weights</a></div><div class="ttdeci">Float_ * weights</div><div class="ttdef"><b>Definition</b> Results.hpp:31</div></div>
+<div class="ttc" id="astructgsdecon_1_1Results_html"><div class="ttname"><a href="structgsdecon_1_1Results.html">gsdecon::Results</a></div><div class="ttdoc">Results of compute() and compute_blocked().</div><div class="ttdef"><b>Definition</b> Results.hpp:39</div></div>
+<div class="ttc" id="astructgsdecon_1_1Results_html_a63423d8b7e2cb1c48444ea6c3f3205c0"><div class="ttname"><a href="structgsdecon_1_1Results.html#a63423d8b7e2cb1c48444ea6c3f3205c0">gsdecon::Results::weights</a></div><div class="ttdeci">std::vector&lt; Float_ &gt; weights</div><div class="ttdef"><b>Definition</b> Results.hpp:51</div></div>
+<div class="ttc" id="astructgsdecon_1_1Results_html_ab6c32ea41976a14f96f630bd24e57759"><div class="ttname"><a href="structgsdecon_1_1Results.html#ab6c32ea41976a14f96f630bd24e57759">gsdecon::Results::scores</a></div><div class="ttdeci">std::vector&lt; Float_ &gt; scores</div><div class="ttdef"><b>Definition</b> Results.hpp:44</div></div>
+<div class="ttc" id="astructgsdecon_1_1Results_html_ad59a851b5462073b39bd890104e3bd1d"><div class="ttname"><a href="structgsdecon_1_1Results.html#ad59a851b5462073b39bd890104e3bd1d">gsdecon::Results::metrics</a></div><div class="ttdeci">irlba::Metrics metrics</div><div class="ttdef"><b>Definition</b> Results.hpp:56</div></div>
+<div class="ttc" id="astructirlba_1_1Metrics_html"><div class="ttname"><a href="https://libscran.github.io/irlba/structirlba_1_1Metrics.html">irlba::Metrics</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

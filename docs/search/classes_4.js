@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['eigenthreadscope_0',['EigenThreadScope',['https://ltla.github.io/CppIrlba/classirlba_1_1EigenThreadScope.html',1,'irlba']]]
+  ['eigenthreadscope_0',['EigenThreadScope',['https://libscran.github.io/irlba/classirlba_1_1EigenThreadScope.html',1,'irlba']]]
 ];

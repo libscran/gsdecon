@@ -1,10 +1,10 @@
 var searchData=
 [
-  ['v_0',['V',['https://ltla.github.io/CppIrlba/structirlba_1_1Results.html#a6559892535ea2ba3b80bfd101e979f3b',1,'irlba::Results']]],
+  ['v_0',['V',['https://libscran.github.io/irlba/structirlba_1_1Results.html#a6559892535ea2ba3b80bfd101e979f3b',1,'irlba::Results']]],
   ['value_1',['value',['https://tatami-inc.github.io/tatami/structtatami_1_1CompressedSparseContents.html#ad406234c4c87a0b3cbdd52948d2ae1b1',1,'tatami::CompressedSparseContents::value'],['https://tatami-inc.github.io/tatami/structtatami_1_1FragmentedSparseContents.html#a24193eb145792effdc67d3e1425f1cd2',1,'tatami::FragmentedSparseContents::value'],['https://tatami-inc.github.io/tatami/structtatami_1_1has__data.html#a8daea495b21dd7f51b24d297c5360d76',1,'tatami::has_data::value'],['https://tatami-inc.github.io/tatami/structtatami_1_1has__data_3_01Type___00_01Container___00_01decltype_07_07void_08_01std_1_1declva66f694cee1ca6e7d197226a9c6d58cf5.html#acfcbad1792cd74438cc5be5ad7e46e9b',1,'tatami::has_data&lt; Type_, Container_, decltype((void) std::declval&lt; Container_ &gt;().data(), 0)&gt;::value'],['https://tatami-inc.github.io/tatami/structtatami_1_1SparseRange.html#a79079e1a7c41b0528542ad9f3ffa3fbd',1,'tatami::SparseRange::value']]],
   ['value_5ftype_2',['value_type',['https://tatami-inc.github.io/tatami/structtatami_1_1SomeNumericArray_1_1Iterator.html#a693024f83ad1ce62afd12619ff455815',1,'tatami::SomeNumericArray::Iterator::value_type'],['https://tatami-inc.github.io/tatami/classtatami_1_1Matrix.html#a3154ad89a70ee70e4f12784f2461fa2d',1,'tatami::Matrix::value_type']]],
   ['variable_5fblock_5fweight_5fparameters_3',['variable_block_weight_parameters',['../structgsdecon_1_1Options.html#a5e6570013997204acf154c31e5a62108',1,'gsdecon::Options']]],
   ['variableweightparameters_4',['VariableWeightParameters',['https://libscran.github.io/scran_blocks/structscran__blocks_1_1VariableWeightParameters.html',1,'scran_blocks']]],
-  ['variances_5',['variances',['https://ltla.github.io/CppIrlba/structirlba_1_1PcaResults.html#ab175b5cb7799e7ca44182cd447699071',1,'irlba::PcaResults']]],
+  ['variances_5',['variances',['https://libscran.github.io/irlba/structirlba_1_1PcaResults.html#ab175b5cb7799e7ca44182cd447699071',1,'irlba::PcaResults']]],
   ['vectorptr_6',['VectorPtr',['https://tatami-inc.github.io/tatami/namespacetatami.html#a1a9c70ebcfa94bba3fea89202868f22f',1,'tatami']]]
 ];

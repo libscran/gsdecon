@@ -131,6 +131,13 @@
       <anchor>a63423d8b7e2cb1c48444ea6c3f3205c0</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable">
+      <type>irlba::Metrics</type>
+      <name>metrics</name>
+      <anchorfile>structgsdecon_1_1Results.html</anchorfile>
+      <anchor>ad59a851b5462073b39bd890104e3bd1d</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="namespace">
     <name>gsdecon</name>
@@ -139,10 +146,10 @@
     <class kind="struct">gsdecon::Options</class>
     <class kind="struct">gsdecon::Results</class>
     <member kind="function">
-      <type>void</type>
+      <type>irlba::Metrics</type>
       <name>compute_blocked</name>
       <anchorfile>namespacegsdecon.html</anchorfile>
-      <anchor>a5e935aeffed62670d96704e921d4ca9d</anchor>
+      <anchor>a15351a5c9cc6e0d513f0c7c110c090c2</anchor>
       <arglist>(const tatami::Matrix&lt; Value_, Index_ &gt; &amp;matrix, const Block_ *const block, const Options &amp;options, const Buffers&lt; Float_ &gt; &amp;output)</arglist>
     </member>
     <member kind="function">
@@ -153,10 +160,10 @@
       <arglist>(const tatami::Matrix&lt; Value_, Index_ &gt; &amp;matrix, const Block_ *const block, const Options &amp;options)</arglist>
     </member>
     <member kind="function">
-      <type>void</type>
+      <type>irlba::Metrics</type>
       <name>compute</name>
       <anchorfile>namespacegsdecon.html</anchorfile>
-      <anchor>a53b57233af73d2b0842bc1898c0a4e02</anchor>
+      <anchor>ae6adfd257ba561edd4e01ba004756ad1</anchor>
       <arglist>(const tatami::Matrix&lt; Value_, Index_ &gt; &amp;matrix, const Options &amp;options, const Buffers&lt; Float_ &gt; &amp;output)</arglist>
     </member>
     <member kind="function">

@@ -3,13 +3,13 @@ include(FetchContent)
 FetchContent_Declare(
   tatami
   GIT_REPOSITORY https://github.com/tatami-inc/tatami
-  GIT_TAG master # ^3.0.0
+  GIT_TAG master # ^4.1.0
 )
 
 FetchContent_Declare(
   irlba
   GIT_REPOSITORY https://github.com/LTLA/CppIrlba
-  GIT_TAG master # ^3.0.0
+  GIT_TAG master # ^3.1.0
 )
 
 FetchContent_Declare(
@@ -21,7 +21,7 @@ FetchContent_Declare(
 FetchContent_Declare(
   scran_pca
   GIT_REPOSITORY https://github.com/libscran/scran_pca
-  GIT_TAG master # ^0.3.0
+  GIT_TAG master # ^0.4.0
 )
 
 FetchContent_Declare(
@@ -33,7 +33,7 @@ FetchContent_Declare(
 FetchContent_Declare(
   sanisizer 
   GIT_REPOSITORY https://github.com/LTLA/sanisizer
-  GIT_TAG master # ^0.1.3
+  GIT_TAG master # ^0.2.0
 )
 
 FetchContent_MakeAvailable(tatami)

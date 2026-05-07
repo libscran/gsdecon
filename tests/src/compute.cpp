@@ -52,6 +52,7 @@ TEST_P(GsdeconSimpleTest, Reference) {
     opt.rank = rank;
     opt.scale = scale;
     auto obs = gsdecon::compute(*matrix, opt);
+    EXPECT_TRUE(obs.metrics.converged);
 
     auto ref = reference(*matrix, rank, scale);
     scran_tests::compare_almost_equal(obs.weights, ref.weights);
@@ -83,6 +84,7 @@ TEST(Gsdecon, EdgeCases) {
         auto res = gsdecon::compute(mat, opt);
         EXPECT_TRUE(res.weights.empty());
         EXPECT_EQ(res.scores, std::vector<double>(400));
+        EXPECT_TRUE(res.metrics.converged);
     }
 
     {
@@ -91,6 +93,7 @@ TEST(Gsdecon, EdgeCases) {
         auto res = gsdecon::compute(mat, opt);
         EXPECT_EQ(res.weights, std::vector<double>(1, 1));
         EXPECT_EQ(res.scores, std::vector<double>(400, 1));
+        EXPECT_TRUE(res.metrics.converged);
     }
 
     {
@@ -99,6 +102,12 @@ TEST(Gsdecon, EdgeCases) {
         auto res = gsdecon::compute(mat, opt);
         EXPECT_EQ(res.weights, std::vector<double>(100));
         EXPECT_TRUE(res.scores.empty());
+        EXPECT_TRUE(res.metrics.converged);
+
+        auto bres = gsdecon::compute_blocked(mat, reinterpret_cast<const int*>(NULL), opt);
+        EXPECT_EQ(bres.weights, std::vector<double>(100));
+        EXPECT_TRUE(bres.scores.empty());
+        EXPECT_TRUE(bres.metrics.converged);
     }
 
     {
@@ -108,10 +117,7 @@ TEST(Gsdecon, EdgeCases) {
         auto res = gsdecon::compute(mat, opt);
         EXPECT_EQ(res.scores, std::vector<double>(200));
         EXPECT_EQ(res.weights, std::vector<double>(100));
-
-        res = gsdecon::compute_blocked(mat, static_cast<const int*>(NULL), opt);
-        EXPECT_EQ(res.scores, std::vector<double>(200));
-        EXPECT_EQ(res.weights, std::vector<double>(100));
+        EXPECT_TRUE(res.metrics.converged);
     }
 }
 
@@ -137,6 +143,7 @@ TEST_P(GsdeconBlockTest, Reference) {
     opt.rank = rank;
     opt.scale = scale;
     auto ref = gsdecon::compute(*matrix, opt);
+    EXPECT_TRUE(ref.metrics.converged);
 
     std::vector<int> batch(matrix->ncol());
     auto obs = gsdecon::compute_blocked(*matrix, batch.data(), opt);
@@ -166,6 +173,7 @@ TEST_P(GsdeconBlockTest, ShiftSanity) {
     opt.rank = rank;
     opt.scale = scale;
     auto ref = gsdecon::compute(*matrix, opt);
+    EXPECT_TRUE(ref.metrics.converged);
     double ref_position = std::accumulate(ref.scores.begin(), ref.scores.end(), 0.0) / ncells;
 
     std::vector<int> batch(ncells * 2);
@@ -215,6 +223,7 @@ TEST_P(GsdeconBlockTest, ScaleSanity) {
     opt.rank = rank;
     opt.scale = scale;
     auto ref = gsdecon::compute(*matrix, opt);
+    EXPECT_TRUE(ref.metrics.converged);
     double ref_position = std::accumulate(ref.scores.begin(), ref.scores.end(), 0.0) / ncells;
 
     std::vector<int> batch(ncells * 2);

@@ -21,7 +21,7 @@ FetchContent_Declare(
 FetchContent_Declare(
   scran_pca
   GIT_REPOSITORY https://github.com/libscran/scran_pca
-  GIT_TAG master # ^0.4.0
+  GIT_TAG master # ^0.4.1
 )
 
 FetchContent_Declare(

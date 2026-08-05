@@ -149,15 +149,15 @@
       <type>irlba::Metrics</type>
       <name>compute_blocked</name>
       <anchorfile>namespacegsdecon.html</anchorfile>
-      <anchor>a15351a5c9cc6e0d513f0c7c110c090c2</anchor>
-      <arglist>(const tatami::Matrix&lt; Value_, Index_ &gt; &amp;matrix, const Block_ *const block, const Options &amp;options, const Buffers&lt; Float_ &gt; &amp;output)</arglist>
+      <anchor>af9961ba28f8f0ed804921c853ed8be17</anchor>
+      <arglist>(const tatami::Matrix&lt; Value_, Index_ &gt; &amp;matrix, const Block_ *const block, const std::size_t num_blocks, const Options &amp;options, const Buffers&lt; Float_ &gt; &amp;output)</arglist>
     </member>
     <member kind="function">
       <type>Results&lt; Float_ &gt;</type>
       <name>compute_blocked</name>
       <anchorfile>namespacegsdecon.html</anchorfile>
-      <anchor>a50697a0a6940d3990c5ec56d1071907c</anchor>
-      <arglist>(const tatami::Matrix&lt; Value_, Index_ &gt; &amp;matrix, const Block_ *const block, const Options &amp;options)</arglist>
+      <anchor>af1eafd6168233853317ede2a135d2799</anchor>
+      <arglist>(const tatami::Matrix&lt; Value_, Index_ &gt; &amp;matrix, const Block_ *const block, const std::size_t num_blocks, const Options &amp;options)</arglist>
     </member>
     <member kind="function">
       <type>irlba::Metrics</type>

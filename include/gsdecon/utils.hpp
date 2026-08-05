@@ -6,6 +6,7 @@
 #include <vector>
 #include <type_traits>
 #include <numeric>
+#include <optional>
 
 #include "Eigen/Dense"
 #include "sanisizer/sanisizer.hpp"
@@ -55,7 +56,13 @@ bool check_edge_cases(const tatami::Matrix<Value_, Index_>& matrix, const int ra
 }
 
 template<typename Float_>
-void process_output(const Eigen::MatrixXd& rotation, const Eigen::MatrixXd& components, bool scale, const Eigen::VectorXd& scale_v, const Buffers<Float_>& output) {
+void process_output(
+    const Eigen::MatrixXd& rotation,
+    const Eigen::MatrixXd& components,
+    bool scale,
+    const std::optional<Eigen::VectorXd>& scale_v,
+    const Buffers<Float_>& output
+) {
     const auto npcs = rotation.cols();
     const auto nfeat = rotation.rows();
     const auto ncells = components.cols();
@@ -101,7 +108,7 @@ void process_output(const Eigen::MatrixXd& rotation, const Eigen::MatrixXd& comp
             // We don't calculate the full 'mean(R_x * S) * P_x' as 'components' is column-major,
             // so it's more efficient to calculate it for each cell rather than for each PC.
             if (scale) {
-                multipliers[pc] = std::inner_product(rptr, rptr + nfeat, scale_v.data(), static_cast<Float_>(0));
+                multipliers[pc] = std::inner_product(rptr, rptr + nfeat, scale_v->data(), static_cast<Float_>(0));
             } else {
                 multipliers[pc] = std::accumulate(rptr, rptr + nfeat, static_cast<Float_>(0));
             }
@@ -126,7 +133,7 @@ void process_output(const Eigen::MatrixXd& rotation, const Eigen::MatrixXd& comp
 
         Float_ multiplier;
         if (scale) {
-            multiplier = std::inner_product(rptr, rptr + nfeat, scale_v.data(), static_cast<Float_>(0));
+            multiplier = std::inner_product(rptr, rptr + nfeat, scale_v->data(), static_cast<Float_>(0));
         } else {
             multiplier = std::accumulate(rptr, rptr + nfeat, static_cast<Float_>(0));
         }

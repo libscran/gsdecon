@@ -40,7 +40,7 @@ However, this does not actually remove the block effects themselves, so any furt
 ```cpp
 gsdecon::Options opt;
 std::vector<double> block_ids(mat.ncols()); // fill with block assignments.
-auto bres = gsdecon::compute_blocked(mat, block_ids.data(), opt);
+auto bres = gsdecon::compute_blocked(mat, block_ids.data(), num_blocks, opt);
 ```
 
 Check out the [reference documentation](https://libscran.github.io/gsdecon) for more details.

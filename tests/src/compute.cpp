@@ -33,7 +33,7 @@ protected:
         // Explicitly computing the low-rank approximation.
         Eigen::MatrixXd lowrank = res.rotation * res.components;
         if (scale) {
-            lowrank.array().colwise() *= res.scale.array();
+            lowrank.array().colwise() *= res.scale->array();
         }
         lowrank.colwise() += res.center;
         Eigen::VectorXd colmeans = lowrank.colwise().sum() / NR;
@@ -104,7 +104,7 @@ TEST(Gsdecon, EdgeCases) {
         EXPECT_TRUE(res.scores.empty());
         EXPECT_TRUE(res.metrics.converged);
 
-        auto bres = gsdecon::compute_blocked(mat, reinterpret_cast<const int*>(NULL), opt);
+        auto bres = gsdecon::compute_blocked(mat, reinterpret_cast<const int*>(NULL), 0, opt);
         EXPECT_EQ(bres.weights, std::vector<double>(100));
         EXPECT_TRUE(bres.scores.empty());
         EXPECT_TRUE(bres.metrics.converged);
@@ -146,7 +146,7 @@ TEST_P(GsdeconBlockTest, Reference) {
     EXPECT_TRUE(ref.metrics.converged);
 
     std::vector<int> batch(matrix->ncol());
-    auto obs = gsdecon::compute_blocked(*matrix, batch.data(), opt);
+    auto obs = gsdecon::compute_blocked(*matrix, batch.data(), 1, opt);
     scran_tests::compare_almost_equal(ref.weights, obs.weights);
     scran_tests::compare_almost_equal(ref.scores, obs.scores);
 }
@@ -178,7 +178,7 @@ TEST_P(GsdeconBlockTest, ShiftSanity) {
 
     std::vector<int> batch(ncells * 2);
     std::fill(batch.begin() + ncells, batch.end(), 1);
-    auto obs = gsdecon::compute_blocked(*combined, batch.data(), opt);
+    auto obs = gsdecon::compute_blocked(*combined, batch.data(), 2, opt);
     scran_tests::compare_almost_equal(ref.weights, obs.weights);
     EXPECT_EQ(obs.scores.size(), ncells * 2);
 
@@ -228,7 +228,7 @@ TEST_P(GsdeconBlockTest, ScaleSanity) {
 
     std::vector<int> batch(ncells * 2);
     std::fill(batch.begin() + ncells, batch.end(), 1);
-    auto obs = gsdecon::compute_blocked(*combined, batch.data(), opt);
+    auto obs = gsdecon::compute_blocked(*combined, batch.data(), 2, opt);
     scran_tests::compare_almost_equal(ref.weights, obs.weights);
     EXPECT_EQ(obs.scores.size(), ncells * 2);
 

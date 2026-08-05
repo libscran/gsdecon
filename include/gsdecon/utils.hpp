@@ -10,6 +10,7 @@
 
 #include "Eigen/Dense"
 #include "sanisizer/sanisizer.hpp"
+#include "quickstats/quickstats.hpp"
 
 #include "Results.hpp"
 
@@ -92,6 +93,19 @@ void process_output(
      * If scale = false, then S can be dropped from the above expressions.
      */
 
+    quickstats::PairwiseSumWorkspace<Float_> pswrk;
+    quickstats::PairwiseSumOptions psopt;
+    auto pairwise_inner_product = [&](const auto n, const auto* left, const auto* right) -> Float_ {
+        return quickstats::pairwise_sum_abstract(
+            n,
+            [&](I<decltype(n)> i) -> Float_ {
+                return left[i] * right[i];
+            },
+            pswrk,
+            psopt
+        );
+    };
+
     if (npcs > 1) {
         auto multipliers = sanisizer::create<std::vector<Float_> >(npcs);
         std::fill_n(output.weights, nfeat, 0);
@@ -108,9 +122,9 @@ void process_output(
             // We don't calculate the full 'mean(R_x * S) * P_x' as 'components' is column-major,
             // so it's more efficient to calculate it for each cell rather than for each PC.
             if (scale) {
-                multipliers[pc] = std::inner_product(rptr, rptr + nfeat, scale_v->data(), static_cast<Float_>(0));
+                multipliers[pc] = pairwise_inner_product(nfeat, rptr, scale_v->data());
             } else {
-                multipliers[pc] = std::accumulate(rptr, rptr + nfeat, static_cast<Float_>(0));
+                multipliers[pc] = quickstats::pairwise_sum(nfeat, rptr, pswrk, psopt);
             }
             multipliers[pc] /= nfeat;
         }
@@ -122,7 +136,7 @@ void process_output(
         // 'scores' should be filled with the (possibly block-specific) center means before this function is called.
         for (I<decltype(ncells)> c = 0; c < ncells; ++c) {
             const auto cptr = components.data() + sanisizer::product_unsafe<std::size_t>(c, npcs);
-            output.scores[c] += std::inner_product(multipliers.begin(), multipliers.end(), cptr, static_cast<Float_>(0));
+            output.scores[c] += pairwise_inner_product(npcs, multipliers.data(), cptr);
         }
 
     } else {
@@ -133,9 +147,9 @@ void process_output(
 
         Float_ multiplier;
         if (scale) {
-            multiplier = std::inner_product(rptr, rptr + nfeat, scale_v->data(), static_cast<Float_>(0));
+            multiplier = pairwise_inner_product(nfeat, rptr, scale_v->data());
         } else {
-            multiplier = std::accumulate(rptr, rptr + nfeat, static_cast<Float_>(0));
+            multiplier = quickstats::pairwise_sum(nfeat, rptr, pswrk, psopt);
         }
         multiplier /= nfeat;
 

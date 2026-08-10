@@ -21,7 +21,7 @@ FetchContent_Declare(
 FetchContent_Declare(
   scran_pca
   GIT_REPOSITORY https://github.com/libscran/scran_pca
-  GIT_TAG master # ^0.4.1
+  GIT_TAG master # ^0.5.0
 )
 
 FetchContent_Declare(
@@ -33,7 +33,7 @@ FetchContent_Declare(
 FetchContent_Declare(
   quickstats
   GIT_REPOSITORY https://github.com/LTLA/quickstats
-  GIT_TAG master # ^0.1.0
+  GIT_TAG master # ^0.2.0
 )
 
 FetchContent_Declare(

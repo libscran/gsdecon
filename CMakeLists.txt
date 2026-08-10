@@ -1,9 +1,11 @@
 cmake_minimum_required(VERSION 3.14)
 
-project(gsdecon
-    VERSION 0.2.2
+project(
+    gsdecon
+    VERSION 0.3.0
     DESCRIPTION "Gene set scoring with principal components"
-    LANGUAGES CXX)
+    LANGUAGES CXX
+)
 
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
